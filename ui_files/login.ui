@@ -30,7 +30,9 @@
     <normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user-business.png</normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user-business.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 0, 0);</string>
+   <string notr="true">background-color: rgb(0, 0, 0);
+color:rgb(255,255,255);
+font-weight:bold</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -295,6 +297,16 @@ color: rgb(255, 0, 0);</string>
          </property>
          <property name="text">
           <string>PAGE FOR ADMINS ONLY !!!! ALL ACTIONS ARE MONITERED</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" alignment="Qt::AlignTop">
+        <widget class="QLabel" name="loginStatusLabel">
+         <property name="styleSheet">
+          <string notr="true">padding-left: 24px;</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

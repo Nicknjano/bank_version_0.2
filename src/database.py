@@ -19,7 +19,7 @@ class Database:
                          second_name TEXT,
                          last_name TEXT,
                          position TEXT,
-                         status TEXT
+                         status TEXT DEFAULT Active
         )""")
         connection.commit()
         connection.close()
@@ -74,7 +74,7 @@ class Database:
         try:
             mycursor.execute("SELECT * FROM customers WHERE customer_id = (?)",
                                 (customer_id,))
-            data = mycursor.fetchall()
+            data = mycursor.fetone()
             if data == None:
                 print('No records retrieved')
             else: 
@@ -83,18 +83,19 @@ class Database:
             print('something went wrong')
         connection.close()
 
-    def get_admin(self,staff_number):
+    def get_admin(self,staff_number,password):
         '''retrieves admin info from db'''
         connection = sqlite3.connect(self.database_path)
         mycursor = connection.cursor()
         try:
-            mycursor.execute("SELECT * FROM admins WHERE staff_number = (?)",
-                                (staff_number,))
-            data = mycursor.fetchall()
+            mycursor.execute("SELECT * FROM admins WHERE staff_number = (?) and password = (?)",
+                                (staff_number,password,))
+            data = mycursor.fetchone()
             if data == None:
                 print('No records retrieved')
-            else: 
-                print(data)
+            else:
+                print(len(data)) 
+                return data
         except:
             print('something went wrong')
         connection.close()
@@ -111,6 +112,7 @@ class Database:
                 print('No records retrieved')
             else: 
                 print(data)
+                return data
         except:
             print('something went wrong')
         connection.close()

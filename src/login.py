@@ -9,7 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import hashlib
+from database import Database
+import add_admin
+database = Database()
 
 class Ui_LoginWindow(object):
     def setupUi(self, LoginWindow):
@@ -20,7 +23,9 @@ class Ui_LoginWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/fugue-icons-3.5.6/icons/user-business.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         LoginWindow.setWindowIcon(icon)
-        LoginWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
+        LoginWindow.setStyleSheet("background-color: rgb(0, 0, 0);\n"
+"color:rgb(255,255,255);\n"
+"font-weight:bold")
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -134,6 +139,11 @@ class Ui_LoginWindow(object):
 "color: rgb(255, 0, 0);")
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 4, 1, 1, 2, QtCore.Qt.AlignLeft)
+        self.loginStatusLabel = QtWidgets.QLabel(self.widget)
+        self.loginStatusLabel.setStyleSheet("padding-left: 24px;")
+        self.loginStatusLabel.setText("")
+        self.loginStatusLabel.setObjectName("loginStatusLabel")
+        self.gridLayout.addWidget(self.loginStatusLabel, 1, 0, 1, 1, QtCore.Qt.AlignTop)
         self.verticalLayout.addWidget(self.widget)
         LoginWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(LoginWindow)
@@ -144,8 +154,32 @@ class Ui_LoginWindow(object):
         self.statusbar.setObjectName("statusbar")
         LoginWindow.setStatusBar(self.statusbar)
 
+        self.loginButton.clicked.connect(self.login)
         self.retranslateUi(LoginWindow)
         QtCore.QMetaObject.connectSlotsByName(LoginWindow)
+
+    def login(self):
+        '''checks whether provided details are correct'''
+        staff_number = self.staffNumberField.text()
+        password = self.passwordField.text()
+        password = hashlib.sha256(password.encode()).hexdigest()
+        post = database.get_admin(staff_number,password) 
+        # print (post)
+        # print(f'length post :{len(post)}')
+        if post == None:
+            self.loginStatusLabel.setStyleSheet("color:rgb(255,0,0)")
+            self.loginStatusLabel.setText('Invalid Login credentials entered !!!')
+        elif len(post) > 0 :
+            self.loginStatusLabel.setStyleSheet("color:rgb(0,255,0)")
+            self.loginStatusLabel.setText('Login successful, Launching app...')
+            self.AddAdminWindow = QtWidgets.QMainWindow()
+            ui_to_call = add_admin.Ui_AddAdminWindow()
+            ui_to_call.setupUi(self.AddAdminWindow)
+            self.AddAdminWindow.show()
+            LoginWindow.close()     
+        else:
+            self.loginStatusLabel.setStyleSheet("color:rgb(255,0,0)")
+            self.loginStatusLabel.setText('Something went wrong')
 
     def retranslateUi(self, LoginWindow):
         _translate = QtCore.QCoreApplication.translate
