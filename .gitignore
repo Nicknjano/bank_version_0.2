@@ -1,2 +1,4 @@
-__pyrc__/
+__pycache__/
+fugue-icons-3.5.6/
+tests.py
 tests.py

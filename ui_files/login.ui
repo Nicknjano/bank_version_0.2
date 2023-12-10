@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>ADMIN LOGIN</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="image_resources.qrc">
+    <normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user-business.png</normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user-business.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>782</width>
+        <height>541</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>782</width>
+        <height>541</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>ADMIN LOGIN</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 255)</string>
+           </property>
+           <property name="text">
+            <string>Staff number</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="staffNumberField">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px;
+color:rgb(255, 255, 255);
+border-style : solid;
+padding-left:6px;
+border-color:rgb(0, 85, 255);
+border-radius:8px;
+}
+QLineEdit:focus{
+border-bottom-color:rgb(0, 196, 113)
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>30</number>
+           </property>
+           <property name="placeholderText">
+            <string>Please enter your staff number</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Preferred</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 255)</string>
+           </property>
+           <property name="text">
+            <string>Password</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="passwordField">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px;
+color:rgb(255, 255, 255);
+border-style : solid;
+padding-left:6px;
+border-color:rgb(0, 85, 255);
+border-radius:8px;
+}
+QLineEdit:focus{
+border-bottom-color:rgb(0, 196, 113)
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>30</number>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Please enter your password</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QPushButton" name="loginButton">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+color:rgb(255, 255, 255);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.948864, y2:0.949, stop:0 rgba(0, 255, 0, 255), stop:0.0227273 rgba(0, 95, 0, 255), stop:0.988636 rgba(0, 255, 180, 255));
+border: 2px;
+border-style : solid;
+border-radius:8px;
+}
+
+QPushButton:hover{
+color:rgb(85, 0, 255)
+}
+
+QPushButton:pressed{
+color:rgb(85, 0, 255);
+	background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 170, 127, 255), stop:0.551136 rgba(0, 198, 145, 255), stop:0.98 rgba(0, 232, 170, 255), stop:1 rgba(0, 0, 0, 0));
+}</string>
+           </property>
+           <property name="text">
+            <string>LOGIN</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="1" colspan="2" alignment="Qt::AlignLeft">
+        <widget class="QLabel" name="label_4">
+         <property name="styleSheet">
+          <string notr="true">
+color: rgb(255, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>PAGE FOR ADMINS ONLY !!!! ALL ACTIONS ARE MONITERED</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="image_resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
