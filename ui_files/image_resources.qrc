@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>../fugue-icons-3.5.6/icons/user--plus.png</file>
     <file>../fugue-icons-3.5.6/icons/user-business.png</file>
   </qresource>
 </RCC>

@@ -46,8 +46,10 @@ class Database:
         try:
             mycursor.execute("INSERT INTO admins VALUES (?,?,?,?,?,?,?)",
                                 (staff_number,password,first_name,second_name,last_name,position,status,))
+            print('admin added successfully')
         except:
-            print('something went wrong')
+            connection.close()
+            return 1
         connection.commit()
         connection.close()
 
@@ -58,8 +60,10 @@ class Database:
         try:
             mycursor.execute("INSERT INTO customers VALUES (?,?,?,?,?,?)",
                                 (customer_id,first_name,second_name,last_name,account_type,account_balance,))
+            print('customer added successfully')
         except:
-            print('something went wrong')
+            connection.close()
+            return 1
         connection.commit()
         connection.close()
 

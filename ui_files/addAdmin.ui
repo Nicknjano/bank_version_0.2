@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddAdminWindow</class>
+ <widget class="QMainWindow" name="AddAdminWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Add Admin</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="image_resources.qrc">
+    <normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user--plus.png</normaloff>:/newPrefix/fugue-icons-3.5.6/icons/user--plus.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 255);
+font-weight:bold</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>24</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>ADD ADMIN</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLabel" name="submitStatusLabel">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(255, 0, 0);
+padding-left:32px</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>32</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="firstNameLabel">
+           <property name="text">
+            <string>First Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="firstNameField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter First Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="secondNameLabel">
+           <property name="text">
+            <string>Second Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="secondNameField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter Second Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lastNameLabel">
+           <property name="text">
+            <string>Last Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lastNameField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter Last Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="statusLabel">
+           <property name="text">
+            <string>Status:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="statusField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter employee status</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="positionLabel">
+           <property name="text">
+            <string>Position:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="positionField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter employee position</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Preferred</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="staffNumberLabel">
+           <property name="text">
+            <string>Staff Number:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="staffNumberField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="placeholderText">
+            <string>Enter your staff number</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="passwordLabel">
+           <property name="text">
+            <string>Password:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="passwordField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Please create a password</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="repeatPasswordLabel">
+           <property name="text">
+            <string>Re-enter password:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="repeatPasswordField">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+border: 4px solid;
+border-color: rgb(85, 85, 255);
+border-radius: 8px;
+padding:4px;
+}
+
+QLineEdit:focus{
+border-bottom-color: rgb(0, 255, 255);
+}</string>
+           </property>
+           <property name="maxLength">
+            <number>26</number>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Repeat password</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item alignment="Qt::AlignRight">
+            <widget class="QPushButton" name="clearButton">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+border: 2px solid;
+color:rgb(0, 0, 0);
+border-color: rgb(136, 23, 152);
+background-color: rgb(255, 255, 255);
+border-radius: 8px;
+padding: 4px;
+}
+
+QPushButton:hover{
+color: rgb(1, 18, 255);
+}
+
+QPushButton:pressed{
+background-color: rgb(0, 0, 0);
+}
+</string>
+             </property>
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QPushButton" name="addAdminButton">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+border: 2px solid;
+color:rgb(0, 0, 0);
+border-color: rgb(136, 23, 152);
+background-color: rgb(255, 255, 255);
+border-radius: 8px;
+padding: 4px;
+}
+
+QPushButton:hover{
+color: rgb(1, 18, 255);
+}
+
+QPushButton:pressed{
+background-color: rgb(0, 0, 0);
+}
+</string>
+             </property>
+             <property name="text">
+              <string>Add Admin</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="image_resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>staffNumberField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>passwordField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>repeatPasswordField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>statusField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>firstNameField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>secondNameField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>lastNameField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>positionField</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>492</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>submitStatusLabel</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>456</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
