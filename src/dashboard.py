@@ -9,9 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from database import Database
 
-database = Database()
 
 class Ui_DashboardWindow(object):
     def setupUi(self, DashboardWindow):
@@ -365,9 +363,9 @@ class Ui_DashboardWindow(object):
         self.transactionFieldsLayout.setObjectName("transactionFieldsLayout")
         spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.transactionFieldsLayout.addItem(spacerItem7)
-        self.label_6 = QtWidgets.QLabel(self.transactionsPage)
-        self.label_6.setObjectName("label_6")
-        self.transactionFieldsLayout.addWidget(self.label_6)
+        self.userAccountLabel = QtWidgets.QLabel(self.transactionsPage)
+        self.userAccountLabel.setObjectName("userAccountLabel")
+        self.transactionFieldsLayout.addWidget(self.userAccountLabel)
         self.senderUserAccountField = QtWidgets.QLineEdit(self.transactionsPage)
         self.senderUserAccountField.setStyleSheet("QLineEdit{\n"
 "border: 2px;\n"
@@ -382,9 +380,9 @@ class Ui_DashboardWindow(object):
 "}")
         self.senderUserAccountField.setObjectName("senderUserAccountField")
         self.transactionFieldsLayout.addWidget(self.senderUserAccountField)
-        self.transactionAmounLabel = QtWidgets.QLabel(self.transactionsPage)
-        self.transactionAmounLabel.setObjectName("transactionAmounLabel")
-        self.transactionFieldsLayout.addWidget(self.transactionAmounLabel)
+        self.transactionAmountCurrencyLabel = QtWidgets.QLabel(self.transactionsPage)
+        self.transactionAmountCurrencyLabel.setObjectName("transactionAmountCurrencyLabel")
+        self.transactionFieldsLayout.addWidget(self.transactionAmountCurrencyLabel)
         self.amountDoubleSpinBox = QtWidgets.QDoubleSpinBox(self.transactionsPage)
         self.amountDoubleSpinBox.setStyleSheet("QDoubleSpinBox{\n"
 "border: 2px;\n"
@@ -404,9 +402,9 @@ class Ui_DashboardWindow(object):
         self.transactionFeeLabel.setText("")
         self.transactionFeeLabel.setObjectName("transactionFeeLabel")
         self.transactionFieldsLayout.addWidget(self.transactionFeeLabel)
-        self.label_8 = QtWidgets.QLabel(self.transactionsPage)
-        self.label_8.setObjectName("label_8")
-        self.transactionFieldsLayout.addWidget(self.label_8)
+        self.sourceOfFundsLabel = QtWidgets.QLabel(self.transactionsPage)
+        self.sourceOfFundsLabel.setObjectName("sourceOfFundsLabel")
+        self.transactionFieldsLayout.addWidget(self.sourceOfFundsLabel)
         self.sourceFundsComboBox = QtWidgets.QComboBox(self.transactionsPage)
         self.sourceFundsComboBox.setStyleSheet("QComboBox{\n"
 "border: 2px;\n"
@@ -424,9 +422,9 @@ class Ui_DashboardWindow(object):
         self.sourceFundsComboBox.addItem("")
         self.sourceFundsComboBox.addItem("")
         self.transactionFieldsLayout.addWidget(self.sourceFundsComboBox)
-        self.label_9 = QtWidgets.QLabel(self.transactionsPage)
-        self.label_9.setObjectName("label_9")
-        self.transactionFieldsLayout.addWidget(self.label_9)
+        self.pinLabel = QtWidgets.QLabel(self.transactionsPage)
+        self.pinLabel.setObjectName("pinLabel")
+        self.transactionFieldsLayout.addWidget(self.pinLabel)
         self.transactorPINField = QtWidgets.QLineEdit(self.transactionsPage)
         self.transactorPINField.setStyleSheet("QLineEdit{\n"
 "border: 2px;\n"
@@ -443,9 +441,9 @@ class Ui_DashboardWindow(object):
         self.transactorPINField.setEchoMode(QtWidgets.QLineEdit.Password)
         self.transactorPINField.setObjectName("transactorPINField")
         self.transactionFieldsLayout.addWidget(self.transactorPINField)
-        self.label_10 = QtWidgets.QLabel(self.transactionsPage)
-        self.label_10.setObjectName("label_10")
-        self.transactionFieldsLayout.addWidget(self.label_10)
+        self.recepientAccountLabel = QtWidgets.QLabel(self.transactionsPage)
+        self.recepientAccountLabel.setObjectName("recepientAccountLabel")
+        self.transactionFieldsLayout.addWidget(self.recepientAccountLabel)
         self.recepientAccountField = QtWidgets.QLineEdit(self.transactionsPage)
         self.recepientAccountField.setStyleSheet("QLineEdit{\n"
 "border: 2px;\n"
@@ -1069,7 +1067,59 @@ class Ui_DashboardWindow(object):
         self.transactionsButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1)) # type: ignore
         self.manageAdminsButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(3)) # type: ignore
         self.manageCustomersButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2)) # type: ignore
+        self.mainDashboardTransactionButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
+        self.mainDashboardCustomerManagementButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+        self.mainDashboardAdminManagementButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(3))
+        self.clearTransactionButton.clicked.connect(self.handle_transaction_clear)
+        self.transferButton.clicked.connect(self.handle_transfer_button)
+        self.withdrawButton.clicked.connect(self.handle_withdraw_button)
+        self.depositButton.clicked.connect(self.handle_deposit_button)
         QtCore.QMetaObject.connectSlotsByName(DashboardWindow)
+
+    def handle_transaction_clear(self):
+        self.senderUserAccountField.clear()
+        self.amountDoubleSpinBox.setValue(0.0)
+        self.recepientAccountField.clear()
+        self.sourceFundsComboBox.setCurrentIndex(0)
+        self.transactorPINField.clear()
+        self.transactionFeeLabel.clear()
+        self.transactionFeeLabel.hide()
+        self.successTransactionLabel.clear()
+
+    def handle_transfer_button(self):
+        self.senderUserAccountField.show()
+        self.amountDoubleSpinBox.show()
+        self.recepientAccountLabel.show()
+        self.recepientAccountField.show()
+        self.sourceOfFundsLabel.show()
+        self.sourceFundsComboBox.show()
+        self.transactorPINField.show()
+        self.transactionFeeLabel.show()
+        self.successTransactionLabel.show()
+        self.transactionFeeLabel.hide()
+
+    def handle_withdraw_button(self):
+        self.senderUserAccountField.show()
+        self.amountDoubleSpinBox.show()
+        self.recepientAccountField.hide()
+        self.sourceFundsComboBox.hide()
+        self.transactorPINField.show()
+        self.transactionFeeLabel.show()
+        self.successTransactionLabel.show()
+        self.sourceOfFundsLabel.hide()
+        self.recepientAccountLabel.hide()
+        self.transactionFeeLabel.hide()
+
+    def handle_deposit_button(self):
+        self.senderUserAccountField.show()
+        self.amountDoubleSpinBox.show()
+        self.recepientAccountField.hide()
+        self.sourceFundsComboBox.hide()
+        self.transactorPINField.show()
+        self.recepientAccountField.hide()
+        self.transactionFeeLabel.show()
+        self.successTransactionLabel.show()
+        self.transactionFeeLabel.hide()
 
     def retranslateUi(self, DashboardWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -1088,16 +1138,16 @@ class Ui_DashboardWindow(object):
         self.transferButton.setText(_translate("DashboardWindow", "Transfer"))
         self.withdrawButton.setText(_translate("DashboardWindow", "Withdraw"))
         self.depositButton.setText(_translate("DashboardWindow", "Deposit"))
-        self.label_6.setText(_translate("DashboardWindow", "User account:"))
+        self.userAccountLabel.setText(_translate("DashboardWindow", "User account:"))
         self.senderUserAccountField.setPlaceholderText(_translate("DashboardWindow", "Please enter your account number"))
-        self.transactionAmounLabel.setText(_translate("DashboardWindow", "Amount in KSH:"))
-        self.label_8.setText(_translate("DashboardWindow", "Source of funds:"))
+        self.transactionAmountCurrencyLabel.setText(_translate("DashboardWindow", "Amount in KSH:"))
+        self.sourceOfFundsLabel.setText(_translate("DashboardWindow", "Source of funds:"))
         self.sourceFundsComboBox.setItemText(0, _translate("DashboardWindow", "Your Account"))
         self.sourceFundsComboBox.setItemText(1, _translate("DashboardWindow", "Mpesa"))
         self.sourceFundsComboBox.setItemText(2, _translate("DashboardWindow", "Credit Card"))
-        self.label_9.setText(_translate("DashboardWindow", "PIN"))
+        self.pinLabel.setText(_translate("DashboardWindow", "PIN"))
         self.transactorPINField.setPlaceholderText(_translate("DashboardWindow", "Please Enter your PIN"))
-        self.label_10.setText(_translate("DashboardWindow", "Recepient Account"))
+        self.recepientAccountLabel.setText(_translate("DashboardWindow", "Recepient Account"))
         self.recepientAccountField.setPlaceholderText(_translate("DashboardWindow", "Enter Recepient\'s account number"))
         self.clearTransactionButton.setText(_translate("DashboardWindow", "Clear"))
         self.submitTransactionButton.setText(_translate("DashboardWindow", "Submit"))
