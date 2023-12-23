@@ -9,7 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from database import Database
 
+database = Database()
 
 class Ui_DashboardWindow(object):
     def setupUi(self, DashboardWindow):
@@ -617,9 +619,9 @@ class Ui_DashboardWindow(object):
         self.label_7 = QtWidgets.QLabel(self.manageCustomersPage)
         self.label_7.setObjectName("label_7")
         self.verticalLayout_10.addWidget(self.label_7)
-        self.comboBox_2 = QtWidgets.QComboBox(self.manageCustomersPage)
-        self.comboBox_2.setMaximumSize(QtCore.QSize(229, 28))
-        self.comboBox_2.setStyleSheet("QComboBox{\n"
+        self.accountTypeComboBox = QtWidgets.QComboBox(self.manageCustomersPage)
+        self.accountTypeComboBox.setMaximumSize(QtCore.QSize(229, 28))
+        self.accountTypeComboBox.setStyleSheet("QComboBox{\n"
 "border: 2px;\n"
 "color:rgb(255, 255, 255);\n"
 "border-style : solid;\n"
@@ -630,12 +632,12 @@ class Ui_DashboardWindow(object):
 "QComboBox:focus{\n"
 "border-bottom-color:rgb(0, 196, 113)\n"
 "}")
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.verticalLayout_10.addWidget(self.comboBox_2)
+        self.accountTypeComboBox.setObjectName("accountTypeComboBox")
+        self.accountTypeComboBox.addItem("")
+        self.accountTypeComboBox.addItem("")
+        self.accountTypeComboBox.addItem("")
+        self.accountTypeComboBox.addItem("")
+        self.verticalLayout_10.addWidget(self.accountTypeComboBox)
         self.label_14 = QtWidgets.QLabel(self.manageCustomersPage)
         self.label_14.setObjectName("label_14")
         self.verticalLayout_10.addWidget(self.label_14)
@@ -902,9 +904,9 @@ class Ui_DashboardWindow(object):
         self.positionLabel = QtWidgets.QLabel(self.manageAdminsPage)
         self.positionLabel.setObjectName("positionLabel")
         self.verticalLayout_5.addWidget(self.positionLabel)
-        self.comboBox = QtWidgets.QComboBox(self.manageAdminsPage)
-        self.comboBox.setMaximumSize(QtCore.QSize(254, 28))
-        self.comboBox.setStyleSheet("QComboBox{\n"
+        self.adminPositionComboBox = QtWidgets.QComboBox(self.manageAdminsPage)
+        self.adminPositionComboBox.setMaximumSize(QtCore.QSize(254, 28))
+        self.adminPositionComboBox.setStyleSheet("QComboBox{\n"
 "border: 2px;\n"
 "color:rgb(255, 255, 255);\n"
 "border-style : solid;\n"
@@ -915,12 +917,12 @@ class Ui_DashboardWindow(object):
 "QComboBox:focus{\n"
 "border-bottom-color:rgb(0, 196, 113)\n"
 "}")
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.verticalLayout_5.addWidget(self.comboBox)
+        self.adminPositionComboBox.setObjectName("adminPositionComboBox")
+        self.adminPositionComboBox.addItem("")
+        self.adminPositionComboBox.addItem("")
+        self.adminPositionComboBox.addItem("")
+        self.adminPositionComboBox.addItem("")
+        self.verticalLayout_5.addWidget(self.adminPositionComboBox)
         self.manageAdminsClearButton = QtWidgets.QPushButton(self.manageAdminsPage)
         self.manageAdminsClearButton.setMinimumSize(QtCore.QSize(80, 0))
         self.manageAdminsClearButton.setStyleSheet("QPushButton{\n"
@@ -1074,9 +1076,13 @@ class Ui_DashboardWindow(object):
         self.transferButton.clicked.connect(self.handle_transfer_button)
         self.withdrawButton.clicked.connect(self.handle_withdraw_button)
         self.depositButton.clicked.connect(self.handle_deposit_button)
+        self.submitTransactionButton.clicked.connect(self.handle_submit_transaction_button)
         QtCore.QMetaObject.connectSlotsByName(DashboardWindow)
 
+    mode = ''
+
     def handle_transaction_clear(self):
+        '''handles clear button on transaction page'''
         self.senderUserAccountField.clear()
         self.amountDoubleSpinBox.setValue(0.0)
         self.recepientAccountField.clear()
@@ -1087,6 +1093,8 @@ class Ui_DashboardWindow(object):
         self.successTransactionLabel.clear()
 
     def handle_transfer_button(self):
+        '''handles transfer button on transaction page'''
+        self.mode = 'transfer'
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
         self.recepientAccountLabel.show()
@@ -1095,31 +1103,89 @@ class Ui_DashboardWindow(object):
         self.sourceFundsComboBox.show()
         self.transactorPINField.show()
         self.transactionFeeLabel.show()
-        self.successTransactionLabel.show()
         self.transactionFeeLabel.hide()
+        self.successTransactionLabel.hide()
+
+        return self.mode
 
     def handle_withdraw_button(self):
+        '''handles withdraw button on transaction page'''
+        self.mode = 'withdraw'
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
+        self.successTransactionLabel.hide()
         self.recepientAccountField.hide()
         self.sourceFundsComboBox.hide()
         self.transactorPINField.show()
         self.transactionFeeLabel.show()
-        self.successTransactionLabel.show()
         self.sourceOfFundsLabel.hide()
         self.recepientAccountLabel.hide()
         self.transactionFeeLabel.hide()
 
+        return self.mode
+
     def handle_deposit_button(self):
+        '''handles deposit button on transaction page'''
+        self.mode = 'deposit'
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
+        self.successTransactionLabel.hide()
         self.recepientAccountField.hide()
         self.sourceFundsComboBox.hide()
         self.transactorPINField.show()
+        self.sourceOfFundsLabel.hide()
         self.recepientAccountField.hide()
         self.transactionFeeLabel.show()
-        self.successTransactionLabel.show()
         self.transactionFeeLabel.hide()
+
+        return self.mode
+
+    def handle_submit_transaction_button(self):
+        '''performs the submit action based on the current transaction mode'''
+        if self.mode == 'transfer':
+            pass
+        elif self.mode == 'withdraw':
+            customer_id = self.senderUserAccountField.text()
+            amount = self.amountDoubleSpinBox.value()
+            if customer_id == '':
+                self.transaction_error('Customer ID can not be empty...')
+                return
+            if amount == 0:
+                self.transaction_error('Withdraw amount can not be zero...')
+                return
+            try:
+                database.withdraw(customer_id,amount)
+                self.transaction_success('Withdraw Successful !!!')
+            except:
+                self.transaction_error('Wrong User account or PIN')
+        elif self.mode == 'deposit':
+            customer_id = self.senderUserAccountField.text()
+            amount = self.amountDoubleSpinBox.value()
+            if customer_id == '':
+                self.transaction_error('Customer ID can not be empty...')
+                return
+            if amount == 0:
+                self.transaction_error('Deposit amount can not be zero...')
+                return
+            try:
+                database.deposit(customer_id,amount)
+                self.transaction_success('Deposit Successful !!!')
+            except:
+                self.transaction_error('Wrong User account or PIN')
+        else:
+            self.transaction_error('Please choose ( transfer, deposit or withdraw ) !!!')
+
+    def transaction_error(self,message):
+        '''displays an error if a transaction doesnt go through'''
+        self.successTransactionLabel.setStyleSheet("color:rgb(255,0,0)")
+        self.successTransactionLabel.show()
+        self.successTransactionLabel.setText(message)
+
+    def transaction_success(self,message):
+        '''displays success message if a transactio goes through'''
+        self.successTransactionLabel.setStyleSheet("color:rgb(0,255,0)")
+        self.successTransactionLabel.show()
+        self.successTransactionLabel.setText(message)
 
     def retranslateUi(self, DashboardWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -1161,10 +1227,10 @@ class Ui_DashboardWindow(object):
         self.label_13.setText(_translate("DashboardWindow", "Last Name"))
         self.customerLastNameField.setPlaceholderText(_translate("DashboardWindow", "Please enter Last name"))
         self.label_7.setText(_translate("DashboardWindow", "Account Type"))
-        self.comboBox_2.setItemText(0, _translate("DashboardWindow", "Comercial Account"))
-        self.comboBox_2.setItemText(1, _translate("DashboardWindow", "Locked Savings Account"))
-        self.comboBox_2.setItemText(2, _translate("DashboardWindow", "Student\'s Account"))
-        self.comboBox_2.setItemText(3, _translate("DashboardWindow", "Fixed Savings Account"))
+        self.accountTypeComboBox.setItemText(0, _translate("DashboardWindow", "Comercial Account"))
+        self.accountTypeComboBox.setItemText(1, _translate("DashboardWindow", "Locked Savings Account"))
+        self.accountTypeComboBox.setItemText(2, _translate("DashboardWindow", "Student\'s Account"))
+        self.accountTypeComboBox.setItemText(3, _translate("DashboardWindow", "Fixed Savings Account"))
         self.label_14.setText(_translate("DashboardWindow", "Account Balance"))
         self.customerManagementClearButton.setText(_translate("DashboardWindow", "Clear"))
         self.viewCustomersButton.setText(_translate("DashboardWindow", "View Customers"))
@@ -1183,10 +1249,10 @@ class Ui_DashboardWindow(object):
         self.statusLabel.setText(_translate("DashboardWindow", "Status:"))
         self.statusField.setPlaceholderText(_translate("DashboardWindow", "Enter employee status"))
         self.positionLabel.setText(_translate("DashboardWindow", "Position:"))
-        self.comboBox.setItemText(0, _translate("DashboardWindow", "Administrator"))
-        self.comboBox.setItemText(1, _translate("DashboardWindow", "Network Adminstrator"))
-        self.comboBox.setItemText(2, _translate("DashboardWindow", "Database Administrator"))
-        self.comboBox.setItemText(3, _translate("DashboardWindow", "System Administrator"))
+        self.adminPositionComboBox.setItemText(0, _translate("DashboardWindow", "Administrator"))
+        self.adminPositionComboBox.setItemText(1, _translate("DashboardWindow", "Network Adminstrator"))
+        self.adminPositionComboBox.setItemText(2, _translate("DashboardWindow", "Database Administrator"))
+        self.adminPositionComboBox.setItemText(3, _translate("DashboardWindow", "System Administrator"))
         self.manageAdminsClearButton.setText(_translate("DashboardWindow", "Clear"))
         self.viewAdminsButton.setText(_translate("DashboardWindow", "View Admins"))
         self.updateAdminButton.setText(_translate("DashboardWindow", "Update Admin"))

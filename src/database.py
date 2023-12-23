@@ -109,10 +109,39 @@ class Database:
                                 (customer_id,))
             data = mycursor.fetchone()[0]
             if data == None:
-                print('No records retrieved')
+                return
             else: 
-                print(data)
                 return data
         except:
             print('something went wrong')
+        connection.close()
+
+    def deposit(self,customer_id,amount):
+        '''handles customer deposits into accounts'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        balance = self.get_balance(customer_id)
+        amount = amount + balance
+        try:
+            mycursor.execute("Update customers SET account_balance = (?) where customer_id = (?)",
+                             (amount,customer_id,))
+        except:
+            print('something went wrong')
+        connection.commit()
+        connection.close()
+
+    def withdraw(self,customer_id,amount):
+        '''handles withdrawal of funds from accounts'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        balance = self.get_balance(customer_id)
+        amount = balance - amount
+        if amount < 0 :
+            print ('Low account balance, can not complete transaction')
+        try:
+            mycursor.execute("Update customers SET account_balance = (?) where customer_id = (?)",
+                             (amount,customer_id,))
+        except:
+            print('something went wrong')
+        connection.commit()
         connection.close()

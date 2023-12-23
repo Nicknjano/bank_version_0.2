@@ -177,7 +177,7 @@ border-bottom-color:rgb(0, 196, 113)
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="mainDashboardPage">
           <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1077,7 +1077,7 @@ border-bottom-color:rgb(0, 196, 113)
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_2">
+                <widget class="QComboBox" name="accountTypeComboBox">
                  <property name="maximumSize">
                   <size>
                    <width>229</width>
@@ -1569,7 +1569,7 @@ border-bottom-color:rgb(0, 196, 113)
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox">
+                <widget class="QComboBox" name="adminPositionComboBox">
                  <property name="maximumSize">
                   <size>
                    <width>254</width>
