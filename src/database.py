@@ -138,9 +138,11 @@ class Database:
         amount = balance - amount
         if amount < 0 :
             print ('Low account balance, can not complete transaction')
+            return 0
         try:
             mycursor.execute("Update customers SET account_balance = (?) where customer_id = (?)",
                              (amount,customer_id,))
+            
         except:
             print('something went wrong')
         connection.commit()

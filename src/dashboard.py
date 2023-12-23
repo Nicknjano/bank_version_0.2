@@ -1095,6 +1095,7 @@ class Ui_DashboardWindow(object):
     def handle_transfer_button(self):
         '''handles transfer button on transaction page'''
         self.mode = 'transfer'
+        self.handle_transaction_clear()
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
         self.recepientAccountLabel.show()
@@ -1111,6 +1112,7 @@ class Ui_DashboardWindow(object):
     def handle_withdraw_button(self):
         '''handles withdraw button on transaction page'''
         self.mode = 'withdraw'
+        self.handle_transaction_clear()
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
         self.successTransactionLabel.hide()
@@ -1127,6 +1129,7 @@ class Ui_DashboardWindow(object):
     def handle_deposit_button(self):
         '''handles deposit button on transaction page'''
         self.mode = 'deposit'
+        self.handle_transaction_clear()
         self.senderUserAccountField.show()
         self.amountDoubleSpinBox.show()
         self.successTransactionLabel.hide()
@@ -1150,12 +1153,16 @@ class Ui_DashboardWindow(object):
             if customer_id == '':
                 self.transaction_error('Customer ID can not be empty...')
                 return
-            if amount == 0:
-                self.transaction_error('Withdraw amount can not be zero...')
+            if amount <= 0:
+                self.transaction_error('Withdraw amount must be grater than zero...')
                 return
             try:
-                database.withdraw(customer_id,amount)
-                self.transaction_success('Withdraw Successful !!!')
+                result = database.withdraw(customer_id,amount)
+                if result == None:
+                    balance = database.get_balance(customer_id)
+                    self.transaction_success(f'Withdraw Successful !!!\nNew account balance {balance}.')
+                else:
+                    self.transaction_error('Insufficient account balance')                    
             except:
                 self.transaction_error('Wrong User account or PIN')
         elif self.mode == 'deposit':
@@ -1164,12 +1171,13 @@ class Ui_DashboardWindow(object):
             if customer_id == '':
                 self.transaction_error('Customer ID can not be empty...')
                 return
-            if amount == 0:
-                self.transaction_error('Deposit amount can not be zero...')
+            if amount <= 0:
+                self.transaction_error('Deposit amount must be grater than zero...')
                 return
             try:
                 database.deposit(customer_id,amount)
-                self.transaction_success('Deposit Successful !!!')
+                balance = database.get_balance(customer_id)
+                self.transaction_success(f'Deposit Successful !!!\nNew account balance {balance}.')
             except:
                 self.transaction_error('Wrong User account or PIN')
         else:

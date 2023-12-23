@@ -82,21 +82,44 @@
     #     if self.mode == 'transfer':
     #         pass
     #     elif self.mode == 'withdraw':
-    #         pass
+    #         customer_id = self.senderUserAccountField.text()
+    #         amount = self.amountDoubleSpinBox.value()
+    #         if customer_id == '':
+    #             self.transaction_error('Customer ID can not be empty...')
+    #             return
+    #         if amount == 0:
+    #             self.transaction_error('Withdraw amount can not be zero...')
+    #             return
+    #         try:
+    #             database.withdraw(customer_id,amount)
+    #             self.transaction_success('Withdraw Successful !!!')
+    #         except:
+    #             self.transaction_error('Wrong User account or PIN')
     #     elif self.mode == 'deposit':
     #         customer_id = self.senderUserAccountField.text()
-    #         print(customer_id)
     #         amount = self.amountDoubleSpinBox.value()
+    #         if customer_id == '':
+    #             self.transaction_error('Customer ID can not be empty...')
+    #             return
+    #         if amount == 0:
+    #             self.transaction_error('Deposit amount can not be zero...')
+    #             return
     #         try:
     #             database.deposit(customer_id,amount)
-    #             self.successTransactionLabel.setStyleSheet("color:rgb(0,255,0)")
-    #             self.successTransactionLabel.show()
-    #             self.successTransactionLabel.setText('Transaction Successful !!!')
+    #             self.transaction_success('Deposit Successful !!!')
     #         except:
-    #             self.successTransactionLabel.setStyleSheet("color:rgb(255,0,0)")
-    #             self.successTransactionLabel.show()
-    #             self.successTransactionLabel.setText('OOPS Something Went Wrong...')
+    #             self.transaction_error('Wrong User account or PIN')
     #     else:
-    #         self.successTransactionLabel.setStyleSheet("color:rgb(255,0,0)")
-    #         self.successTransactionLabel.show()
-    #         self.successTransactionLabel.setText('Please choose between ( transfer, deposit and withdraw ) !!!')
+    #         self.transaction_error('Please choose ( transfer, deposit or withdraw ) !!!')
+
+    # def transaction_error(self,message):
+    #     '''displays an error if a transaction doesnt go through'''
+    #     self.successTransactionLabel.setStyleSheet("color:rgb(255,0,0)")
+    #     self.successTransactionLabel.show()
+    #     self.successTransactionLabel.setText(message)
+
+    # def transaction_success(self,message):
+    #     '''displays success message if a transactio goes through'''
+    #     self.successTransactionLabel.setStyleSheet("color:rgb(0,255,0)")
+    #     self.successTransactionLabel.show()
+    #     self.successTransactionLabel.setText(message)
