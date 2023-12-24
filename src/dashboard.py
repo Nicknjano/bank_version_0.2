@@ -15,7 +15,7 @@ database = Database()
 
 class Ui_DashboardWindow(object):
     def setupUi(self, DashboardWindow):
-        DashboardWindow.setObjectName("DashboardWindow")
+        # DashboardWindow.setObjectName("DashboardWindow")
         DashboardWindow.resize(777, 579)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/myicons/other_icons/Bank Building_9.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1146,12 +1146,43 @@ class Ui_DashboardWindow(object):
     def handle_submit_transaction_button(self):
         '''performs the submit action based on the current transaction mode'''
         if self.mode == 'transfer':
-            pass
+            customer_id = self.senderUserAccountField.text()
+            amount = self.amountDoubleSpinBox.value()
+            funds_source = self.sourceFundsComboBox.currentText()
+            recepient_id = self.recepientAccountField.text()
+            if customer_id == '':
+                self.transaction_error('User account can not be empty...')
+                return
+            if amount <= 0:
+                self.transaction_error('Transfer amount must be grater than zero...')
+                return
+            if recepient_id == '':
+                self.transaction_error('Recepient account can not be empty...')
+                return
+            if recepient_id == customer_id :
+                self.transaction_error('Sender account can not be the same as Recepient account')
+                return
+            try:
+                result = database.transfer(customer_id,recepient_id,funds_source,amount)
+                if result == None:
+                    balance = database.get_balance(customer_id)
+                    self.transaction_success(f'Transfer Successful !!!\nNew account balance {balance}.')
+                elif result == 1:
+                    self.transaction_error('Insufficient account balance')
+                elif result == 2:
+                    self.transaction_error('Please check the accounts')
+                else:
+                    self.transaction_error('OOPS Something went wrong on our side')
+                    
+            except:
+                self.transaction_error('Wrong accounts entered ')
+
+
         elif self.mode == 'withdraw':
             customer_id = self.senderUserAccountField.text()
             amount = self.amountDoubleSpinBox.value()
             if customer_id == '':
-                self.transaction_error('Customer ID can not be empty...')
+                self.transaction_error('User account can not be empty...')
                 return
             if amount <= 0:
                 self.transaction_error('Withdraw amount must be grater than zero...')
@@ -1169,7 +1200,7 @@ class Ui_DashboardWindow(object):
             customer_id = self.senderUserAccountField.text()
             amount = self.amountDoubleSpinBox.value()
             if customer_id == '':
-                self.transaction_error('Customer ID can not be empty...')
+                self.transaction_error('User account can not be empty...')
                 return
             if amount <= 0:
                 self.transaction_error('Deposit amount must be grater than zero...')

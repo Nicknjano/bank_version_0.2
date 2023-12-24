@@ -34,7 +34,7 @@ class Database:
                          second_name TEXT,
                          last_name TEXT,
                          account_type TEXT,
-                         account_balance NUMERIC
+                         account_balance NUMERIC NOT NULL DEFAULT (0) 
         )""")
         connection.commit()
         connection.close()
@@ -123,7 +123,7 @@ class Database:
         balance = self.get_balance(customer_id)
         amount = amount + balance
         try:
-            mycursor.execute("Update customers SET account_balance = (?) where customer_id = (?)",
+            mycursor.execute("UPDATE customers SET account_balance = (?) where customer_id = (?)",
                              (amount,customer_id,))
         except:
             print('something went wrong')
@@ -140,10 +140,33 @@ class Database:
             print ('Low account balance, can not complete transaction')
             return 0
         try:
-            mycursor.execute("Update customers SET account_balance = (?) where customer_id = (?)",
+            mycursor.execute("UPDATE customers SET account_balance = (?) where customer_id = (?)",
                              (amount,customer_id,))
             
         except:
             print('something went wrong')
         connection.commit()
         connection.close()
+
+    def transfer(self,customer_id,recepient_id,funds_source,amount):
+        '''handles transfer of funds from an account to another'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        try:
+            mycursor.execute('BEGIN')
+            sender_balance = self.get_balance(customer_id)
+            recepient_balance = self.get_balance(recepient_id)
+            if (sender_balance - amount) < 0:
+                connection.close()
+                return 1
+            else:
+                mycursor.execute("UPDATE customers SET account_balance = (?) where customer_id = (?)",
+                             ((sender_balance-amount),customer_id,))
+                mycursor.execute("UPDATE customers SET account_balance = (?) where customer_id = (?)",
+                             ((recepient_balance+amount),recepient_id,))
+            mycursor.execute('COMMIT')
+        except:
+            mycursor.execute('ROLLBACK')
+            return 2
+        finally:
+            connection.close()
