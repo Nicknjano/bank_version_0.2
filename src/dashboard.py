@@ -15,7 +15,7 @@ database = Database()
 
 class Ui_DashboardWindow(object):
     def setupUi(self, DashboardWindow):
-        # DashboardWindow.setObjectName("DashboardWindow")
+        DashboardWindow.setObjectName("DashboardWindow")
         DashboardWindow.resize(777, 579)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/myicons/other_icons/Bank Building_9.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -397,7 +397,7 @@ class Ui_DashboardWindow(object):
 "QDoubleSpinBox:focus{\n"
 "border-bottom-color:rgb(0, 196, 113)\n"
 "}")
-        self.amountDoubleSpinBox.setMaximum(9999999999999.0)
+        self.amountDoubleSpinBox.setMaximum(1e+67)
         self.amountDoubleSpinBox.setObjectName("amountDoubleSpinBox")
         self.transactionFieldsLayout.addWidget(self.amountDoubleSpinBox)
         self.transactionFeeLabel = QtWidgets.QLabel(self.transactionsPage)
@@ -641,9 +641,9 @@ class Ui_DashboardWindow(object):
         self.label_14 = QtWidgets.QLabel(self.manageCustomersPage)
         self.label_14.setObjectName("label_14")
         self.verticalLayout_10.addWidget(self.label_14)
-        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.manageCustomersPage)
-        self.doubleSpinBox.setMaximumSize(QtCore.QSize(229, 28))
-        self.doubleSpinBox.setStyleSheet("QDoubleSpinBox{\n"
+        self.accountBalanceDoubleSpinBox = QtWidgets.QDoubleSpinBox(self.manageCustomersPage)
+        self.accountBalanceDoubleSpinBox.setMaximumSize(QtCore.QSize(229, 28))
+        self.accountBalanceDoubleSpinBox.setStyleSheet("QDoubleSpinBox{\n"
 "border: 2px;\n"
 "color:rgb(255, 255, 255);\n"
 "border-style : solid;\n"
@@ -654,8 +654,9 @@ class Ui_DashboardWindow(object):
 "QDoubleSpinBox:focus{\n"
 "border-bottom-color:rgb(0, 196, 113)\n"
 "}")
-        self.doubleSpinBox.setObjectName("doubleSpinBox")
-        self.verticalLayout_10.addWidget(self.doubleSpinBox)
+        self.accountBalanceDoubleSpinBox.setMaximum(1e+50)
+        self.accountBalanceDoubleSpinBox.setObjectName("accountBalanceDoubleSpinBox")
+        self.verticalLayout_10.addWidget(self.accountBalanceDoubleSpinBox)
         self.customerManagementClearButton = QtWidgets.QPushButton(self.manageCustomersPage)
         self.customerManagementClearButton.setMinimumSize(QtCore.QSize(80, 0))
         self.customerManagementClearButton.setBaseSize(QtCore.QSize(0, 0))
@@ -1077,6 +1078,11 @@ class Ui_DashboardWindow(object):
         self.withdrawButton.clicked.connect(self.handle_withdraw_button)
         self.depositButton.clicked.connect(self.handle_deposit_button)
         self.submitTransactionButton.clicked.connect(self.handle_submit_transaction_button)
+        self.customerManagementClearButton.clicked.connect(self.handle_customer_clear)
+        self.viewCustomersButton.clicked.connect(self.handle_view_customers)
+        self.createCustomerButton.clicked.connect(self.handle_create_customer)
+        self.deleteCustomerButton.clicked.connect(self.handle_delete_customer)
+        self.updateCustomerButton.clicked.connect(self.handle_update_customer)
         QtCore.QMetaObject.connectSlotsByName(DashboardWindow)
 
     mode = ''
@@ -1225,6 +1231,90 @@ class Ui_DashboardWindow(object):
         self.successTransactionLabel.setStyleSheet("color:rgb(0,255,0)")
         self.successTransactionLabel.show()
         self.successTransactionLabel.setText(message)
+
+    def handle_customer_clear(self):
+        '''handles the clear button on the customer management page'''
+        self.customerIdField.clear()
+        self.customerFirstNameField.clear()
+        self.customerSecondNameField.clear()
+        self.customerLastNameField.clear()
+        self.accountTypeComboBox.setCurrentIndex(0)
+        self.accountBalanceDoubleSpinBox.setValue(0.0)
+        self.updateCustomerStatusLabel.clear()
+
+    def handle_view_customers(self):
+        pass
+        # '''handles the view customer button on customer management page'''
+        # from PyQt5.QtGui import QStandardItem, QStandardItemModel
+        # self.handle_customer_clear()
+        # customers = database.get_customers()
+        # model = QStandardItemModel
+        # model.setHorizontalHeaderLabels(["staff_number","password","first_name","second_name","last_name","position","status"])
+        # self.customerListTreeView.setModel(model)
+
+        # return model
+
+
+    def handle_create_customer(self):
+        '''handles the create customer button on customer management page'''
+        customer_id = self.customerIdField.text()
+        first_name = self.customerFirstNameField.text()
+        second_name = self.customerSecondNameField.text()
+        last_name = self.customerLastNameField.text()
+        account_type = self.accountTypeComboBox.currentText()
+        account_balance = self.accountBalanceDoubleSpinBox.value()
+        result = database.add_customer(customer_id,first_name,second_name,last_name,account_type,account_balance)
+        if result == 1:
+            self.update_customer_fail('Customer ID can not be empty...')
+        elif result == 'customer exists':
+            self.update_customer_fail('Customer arleady exists...')
+        elif result == 2:
+            self.update_customer_fail('OOPS Something went wrong...')
+        else:
+            self.handle_customer_clear()
+            self.update_customer_success('Customer created successfully...')
+            
+
+    def handle_delete_customer(self):
+        '''handles the delete button of customer management page'''
+        customer_id = self.customerIdField.text()
+        result = database.get_customer(customer_id)
+        if result == None:
+            self.update_customer_fail('Customer does not exist...')
+        else:
+            other_result = database.delete_customer(customer_id)
+            if other_result == None:
+                self.handle_customer_clear()
+                self.update_customer_success('Customer deleted successfully')               
+            else:
+                self.update_customer_fail('OOPS something went wrong...')
+
+    def handle_update_customer(self):
+        '''handles the update button of the customer management page'''
+        customer_id = self.customerIdField.text()
+        first_name = self.customerFirstNameField.text()
+        second_name = self.customerSecondNameField.text()
+        last_name = self.customerLastNameField.text()
+        account_type = self.accountTypeComboBox.currentText()
+        account_balance = self.accountBalanceDoubleSpinBox.value()
+        result = database.update_customer(customer_id,first_name,second_name,last_name,account_type,account_balance)
+        if result == 1:
+            self.update_customer_fail('Customer does not exist...')
+        elif result == 2:
+            self.update_customer_fail('OOPS Something went wrong...')
+        else:
+            self.handle_customer_clear()
+            self.update_customer_success('Customer updated successfully...')
+
+    def update_customer_success(self,message):
+        '''prints success message for successful customer update'''
+        self.updateCustomerStatusLabel.setStyleSheet("color:rgb(0,255,0)")
+        self.updateCustomerStatusLabel.setText(message)
+
+    def update_customer_fail(self,message):
+        '''prints success message for successful customer update'''
+        self.updateCustomerStatusLabel.setStyleSheet("color:rgb(255,0,0)")
+        self.updateCustomerStatusLabel.setText(message)
 
     def retranslateUi(self, DashboardWindow):
         _translate = QtCore.QCoreApplication.translate

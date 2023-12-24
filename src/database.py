@@ -57,13 +57,18 @@ class Database:
         '''adds customer details to db'''
         connection = sqlite3.connect(self.database_path)
         mycursor = connection.cursor()
+        existence = self.get_customer(customer_id)
+        if existence != None:
+            return 'customer exists'
+        if customer_id == '':
+            return 1
         try:
             mycursor.execute("INSERT INTO customers VALUES (?,?,?,?,?,?)",
                                 (customer_id,first_name,second_name,last_name,account_type,account_balance,))
             print('customer added successfully')
-        except:
+        except :
             connection.close()
-            return 1
+            return 2
         connection.commit()
         connection.close()
 
@@ -74,13 +79,55 @@ class Database:
         try:
             mycursor.execute("SELECT * FROM customers WHERE customer_id = (?)",
                                 (customer_id,))
-            data = mycursor.fetone()
+            data = mycursor.fetchone()
             if data == None:
-                print('No records retrieved')
+                return
             else: 
-                print(data)
+                connection.close()
+                return data
+        except Exception as e:
+            connection.close()
+
+    def get_customers(self):
+        '''retrieve all customers'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        mycursor.execute("SELECT * FROM customers")
+        data = mycursor.fetchall()
+        connection.close()
+        return data
+    
+    def update_customer(self,customer_id,first_name,second_name,last_name,account_type,account_balance):
+        '''updates the customers details'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        result = self.get_customer(customer_id)
+        if result == None:
+            return 1
+        try:
+            mycursor.execute("""UPDATE customers 
+                             SET first_name=(?),
+                             second_name = (?),
+                             last_name =(?),
+                             account_type=(?),
+                             account_balance= (?)
+                             where customer_id=(?) """,(first_name,second_name,last_name,account_type,account_balance,customer_id,))
+            connection.commit()
+            connection.close()
+        except Exception as e:
+            print(e)
+            return 2
+
+    def delete_customer(self,customer_id):
+        '''delete a choosen customer from the DB'''
+        connection = sqlite3.connect(self.database_path)
+        mycursor = connection.cursor()
+        try:
+            mycursor.execute("DELETE FROM customers where customer_id = (?) ",
+                                (customer_id,))
         except:
-            print('something went wrong')
+            return 1
+        connection.commit()
         connection.close()
 
     def get_admin(self,staff_number,password):

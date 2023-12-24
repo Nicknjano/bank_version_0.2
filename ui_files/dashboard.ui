@@ -177,7 +177,7 @@ border-bottom-color:rgb(0, 196, 113)
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="mainDashboardPage">
           <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -665,7 +665,7 @@ border-bottom-color:rgb(0, 196, 113)
 }</string>
                  </property>
                  <property name="maximum">
-                  <double>9999999999999.000000000000000</double>
+                  <double>9999999999999999827367757839185598317239782875580932278577147150336.000000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -1127,7 +1127,7 @@ border-bottom-color:rgb(0, 196, 113)
                 </widget>
                </item>
                <item>
-                <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                <widget class="QDoubleSpinBox" name="accountBalanceDoubleSpinBox">
                  <property name="maximumSize">
                   <size>
                    <width>229</width>
@@ -1146,6 +1146,9 @@ border-radius:8px;
 QDoubleSpinBox:focus{
 border-bottom-color:rgb(0, 196, 113)
 }</string>
+                 </property>
+                 <property name="maximum">
+                  <double>100000000000000007629769841091887003294964970946560.000000000000000</double>
                  </property>
                 </widget>
                </item>
